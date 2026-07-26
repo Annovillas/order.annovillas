@@ -162,10 +162,16 @@
     font-size:17px;font-weight:700;cursor:pointer;line-height:1;color:var(--ink);
     display:flex;align-items:center;justify-content:center;font-family:var(--font-body)}
   .qty-num{font-family:var(--font-mono);font-size:16px;font-weight:600;min-width:20px;text-align:center}
-  .thumbs{display:flex;gap:6px;padding:8px 10px 0;background:#fff}
-  .thumb{width:44px;height:44px;object-fit:cover;border-radius:8px;border:2px solid var(--line);
-    cursor:pointer;opacity:.75;flex:none}
-  .thumb.on{border-color:var(--yellow);opacity:1}
+  .gal{position:relative;overflow:hidden;touch-action:pan-y}
+  .gal-arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;
+    border-radius:50%;border:none;background:rgba(255,255,255,.88);color:var(--ink);
+    font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 1px 6px rgba(0,0,0,.18);padding:0 0 2px}
+  .gal-arrow.prev{left:8px}
+  .gal-arrow.next{right:8px}
+  .gal-dots{position:absolute;bottom:9px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none}
+  .gal-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.65);box-shadow:0 0 3px rgba(0,0,0,.25)}
+  .gal-dot.on{background:var(--yellow);width:14px;border-radius:3px}
 
   /* message plate */
   .plate-card{
@@ -696,22 +702,37 @@ const t = k => (I18N[k]||{})[LANG] || "";
 const L = o => o[LANG] || o.en;
 const yen = n => "¥" + n.toLocaleString("ja-JP");
 
-/* 商品相簿：商品若有 photos 陣列則顯示縮圖切換 */
+/* 商品相簿：商品若有 photos 陣列，左右滑動（或點箭頭）切換照片 */
 let photoSel = {};
 function productImgHTML(c){
   const ph = (c.photos && c.photos.length) ? c.photos : [c.img];
   const idx = Math.min(photoSel[c.id] || 0, ph.length - 1);
-  let html = `<img src="${ph[idx]}" alt="${L(c.name)}">`;
-  if(ph.length > 1){
-    html += `<div class="thumbs">` + ph.map((p,i)=>
-      `<img src="${p}" class="thumb${i===idx ? " on" : ""}" data-pid="${c.id}" data-idx="${i}" alt="">`
-    ).join("") + `</div>`;
-  }
-  return html;
+  if(ph.length === 1) return `<img src="${ph[0]}" alt="${L(c.name)}">`;
+  return `<div class="gal" data-pid="${c.id}" data-n="${ph.length}">
+    <img src="${ph[idx]}" alt="${L(c.name)}">
+    <button type="button" class="gal-arrow prev" data-d="-1" aria-label="prev">‹</button>
+    <button type="button" class="gal-arrow next" data-d="1" aria-label="next">›</button>
+    <div class="gal-dots">${ph.map((_,i)=>`<span class="gal-dot${i===idx ? " on" : ""}"></span>`).join("")}</div>
+  </div>`;
 }
 function bindThumbs(el, rebuild){
-  el.querySelectorAll(".thumb").forEach(tb=>{
-    tb.onclick = e=>{ e.stopPropagation(); photoSel[tb.dataset.pid] = +tb.dataset.idx; rebuild(); };
+  el.querySelectorAll(".gal").forEach(g=>{
+    const pid = g.dataset.pid, n = +g.dataset.n;
+    const move = d => { photoSel[pid] = ((photoSel[pid] || 0) + d + n) % n; rebuild(); };
+    g.querySelectorAll(".gal-arrow").forEach(b=>{
+      b.onclick = e=>{ e.stopPropagation(); move(+b.dataset.d); };
+    });
+    let sx = null;
+    g.addEventListener("touchstart", e=>{ sx = e.touches[0].clientX; }, {passive:true});
+    g.addEventListener("touchend", e=>{
+      if(sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      sx = null;
+      if(Math.abs(dx) > 40){
+        e.preventDefault();          /* 滑動後不觸發選取 */
+        move(dx < 0 ? 1 : -1);
+      }
+    }, {passive:false});
   });
 }
 

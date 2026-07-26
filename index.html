@@ -153,6 +153,15 @@
     transition:all .15s;flex:none;
   }
   .cake.selected .cake-check{background:var(--yellow);border-color:var(--ink);color:var(--ink);font-weight:700}
+  .qty-row{display:none;align-items:center;justify-content:space-between;margin-top:10px;
+    background:var(--yellow-soft);border-radius:10px;padding:7px 10px}
+  .cake.selected .qty-row{display:flex}
+  .qty-label{font-size:12px;font-weight:600;color:#8A6410;letter-spacing:.06em;text-transform:uppercase}
+  .qty-ctrl{display:flex;align-items:center;gap:12px}
+  .qty-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--ink);background:#fff;
+    font-size:17px;font-weight:700;cursor:pointer;line-height:1;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;font-family:var(--font-body)}
+  .qty-num{font-family:var(--font-mono);font-size:16px;font-weight:600;min-width:20px;text-align:center}
 
   /* message plate */
   .plate-card{
@@ -341,6 +350,13 @@
     <div class="cakes" id="flowerList"></div>
   </section>
 
+  <!-- BOUTIQUE -->
+  <section class="step" id="secMerch" style="display:none">
+    <div class="step-head"><span class="step-dot">1</span><h2 data-i18n="sMmain">Choose your items</h2></div>
+    <p class="step-sub" data-i18n="sMsub">Our original pieces, made for the villas — available for purchase.</p>
+    <div class="cakes" id="merchList"></div>
+  </section>
+
   <!-- DETAILS -->
   <section class="step" id="secDetails">
     <div class="step-head"><span class="step-dot" id="dotDetails">3</span><h2 data-i18n="s2">Your details</h2></div>
@@ -452,6 +468,12 @@ const I18N = {
   hCakeSub:{en:"From \u00a54,000 \u00b7 chilled to your room fridge", zh:"\u00a54,000 起・冷藏直送客房冰箱", ja:"\u00a54,000\u301c・冷蔵でお部屋の冷蔵庫へ"},
   hFlower:{en:"Fresh Flowers", zh:"鮮花花束", ja:"生花ブーケ"},
   hFlowerSub:{en:"Rose bouquets from \u00a513,200", zh:"玫瑰花束 \u00a513,200 起", ja:"ローズブーケ \u00a513,200\u301c"},
+  hMerch:{en:"Villa Boutique", zh:"別墅選物", ja:"オリジナルグッズ"},
+  hMerchSub:{en:"Take a piece of Anno Villas home", zh:"把 Anno Villas 的記憶帶回家", ja:"アンノヴィラズの思い出をお持ち帰り"},
+  sMmain:{en:"Choose your items", zh:"選擇商品", ja:"グッズを選ぶ"},
+  sMsub:{en:"Our original pieces, made for the villas — available for purchase.", zh:"別墅內使用的原創物件，喜歡也可以帶回家。", ja:"ヴィラで実際に使用しているオリジナルアイテムを、ご購入いただけます。"},
+  errNeedMerch:{en:"Please choose an item", zh:"請選擇商品", ja:"商品をお選びください"},
+  qty:{en:"Qty", zh:"數量", ja:"個数"},
   hStart:{en:"Browse", zh:"開始選購", ja:"選ぶ"},
   back:{en:"Back to categories", zh:"返回類別選擇", ja:"カテゴリー選択に戻る"},
   s1:{en:"Choose your cake", zh:"選擇蛋糕", ja:"ケーキを選ぶ"},
@@ -538,6 +560,12 @@ const LANG_EXTRA = {
     hCakeSub:{ko:"\u00a54,000부터 \u00b7 객실 냉장고까지 냉장 배송", fr:"\u00c0 partir de 4\u202f000\u202f\u00a5 \u00b7 livr\u00e9 au frais dans votre r\u00e9frig\u00e9rateur", th:"เริ่มต้น \u00a54,000 \u00b7 จัดส่งแช่เย็นถึงตู้เย็นในห้องพัก"},
     hFlower:{ko:"생화 부케", fr:"Fleurs fra\u00eeches", th:"ดอกไม้สด"},
     hFlowerSub:{ko:"로즈 부케 \u00a513,200부터", fr:"Bouquets de roses d\u00e8s 13\u202f200\u202f\u00a5", th:"ช่อกุหลาบ เริ่มต้น \u00a513,200"},
+    hMerch:{ko:"오리지널 굿즈", fr:"Boutique de la villa", th:"ของที่ระลึกวิลล่า"},
+    hMerchSub:{ko:"Anno Villas의 추억을 집으로", fr:"Emportez un souvenir d'Anno Villas", th:"นำความทรงจำจาก Anno Villas กลับบ้าน"},
+    sMmain:{ko:"상품 고르기", fr:"Choisissez vos articles", th:"เลือกสินค้า"},
+    sMsub:{ko:"빌라에서 실제 사용 중인 오리지널 아이템을 구매하실 수 있습니다.", fr:"Les pièces originales de nos villas, disponibles à l'achat.", th:"ของใช้ออริจินอลที่ใช้จริงในวิลล่า มีจำหน่ายให้ซื้อกลับได้"},
+    errNeedMerch:{ko:"상품을 선택해 주세요", fr:"Veuillez choisir un article", th:"กรุณาเลือกสินค้า"},
+    qty:{ko:"수량", fr:"Qté", th:"จำนวน"},
     hStart:{ko:"선택하기", fr:"D\u00e9couvrir", th:"เลือกดู"},
     back:{ko:"카테고리로 돌아가기", fr:"Retour aux cat\u00e9gories", th:"กลับไปเลือกหมวดหมู่"},
     s1:{ko:"케이크 고르기", fr:"Choisissez votre g\u00e2teau", th:"เลือกเค้ก"},
@@ -650,10 +678,14 @@ CAKES.forEach(c=>{ const e=LANG_EXTRA.cakes[c.id]; if(e) ["badge","name","desc"]
 FLOWERS.forEach(c=>{ const e=LANG_EXTRA.flowers[c.id]; if(e) ["badge","name","desc"].forEach(f=>{ if(e[f]) Object.assign(c[f], e[f]); }); });
 TIMES.forEach(x=>{ const e=LANG_EXTRA.times[x.id]; if(e) Object.assign(x.label, e); });
 
+/* 若舊版 products.js 尚未包含 MERCH，選物區自動隱藏，不影響其他功能 */
+const MERCH_LIST = (typeof MERCH !== "undefined") ? MERCH : [];
+
 let LANG = "en";
 let selectedCake = null;
 let selectedFlower = null;
-let MODE = null;   /* null = home, "cake" | "flower" */
+let MODE = null;   /* null = home, "cake" | "flower" | "merch" */
+let merchSel = {};  /* {id: qty} */
 
 const $ = s => document.querySelector(s);
 const t = k => (I18N[k]||{})[LANG] || "";
@@ -694,6 +726,7 @@ function buildHome(){
     {mode:"cake",   img:CAKES[1].img,   name:t("hCake"),   sub:t("hCakeSub")},
     {mode:"flower", img:FLOWERS[0].img, name:t("hFlower"), sub:t("hFlowerSub")}
   ];
+  if(MERCH_LIST.length) entries.push({mode:"merch", img:MERCH_LIST[0].entryImg || MERCH_LIST[0].img, name:t("hMerch"), sub:t("hMerchSub")});
   entries.forEach(e=>{
     const el = document.createElement("button");
     el.type = "button";
@@ -713,7 +746,7 @@ function buildHome(){
 function setMode(m){
   MODE = m;
   /* 切換入口時清除選擇，避免帶入另一類別的品項 */
-  selectedCake = null; selectedFlower = null;
+  selectedCake = null; selectedFlower = null; merchSel = {};
   $("#plateInput").value = ""; 
   const pc = $("#plateCount"); if(pc) pc.textContent = "0/20";
   $("#plateCard").classList.remove("show");
@@ -724,11 +757,13 @@ function setMode(m){
   $("#orderView").style.display = m ? "block" : "none";
 
   if(m){
-    $("#secCake").style.display = (m==="cake") ? "block" : "none";
+    $("#secCake").style.display   = (m==="cake") ? "block" : "none";
+    $("#secFlower").style.display = (m==="merch") ? "none" : "block";
+    $("#secMerch").style.display  = (m==="merch") ? "block" : "none";
     $("#dotFlower").textContent = (m==="cake") ? "2" : "1";
     $("#dotDetails").textContent = (m==="cake") ? "3" : "2";
     updateModeTexts();
-    buildCakes(); buildFlowers();
+    buildCakes(); buildFlowers(); buildMerch();
     window.scrollTo({top:0, behavior:"smooth"});
   }
 }
@@ -742,6 +777,51 @@ function updateModeTexts(){
     head.innerHTML = `${t("sF")}<span class="h-opt">${t("optional")}</span>`;
     sub.textContent = t("sFsub");
   }
+}
+
+function buildMerch(){
+  const list = $("#merchList");
+  if(!list) return;
+  list.innerHTML = "";
+  MERCH_LIST.forEach(c=>{
+    const qty = merchSel[c.id] || 0;
+    const el = document.createElement("div");
+    el.className = "cake" + (qty>0 ? " selected":"");
+    el.setAttribute("role","button");
+    el.setAttribute("tabindex","0");
+    el.innerHTML = `
+      <span class="cake-badge">${L(c.badge)}</span>
+      <img src="${c.img}" alt="${L(c.name)}">
+      <div class="cake-info">
+        <div class="cake-name">${L(c.name)}</div>
+        <div class="cake-desc">${L(c.desc)}</div>
+        <div class="cake-price"><span>${yen(c.price)}</span><span class="cake-check">✓</span></div>
+        <div class="qty-row">
+          <span class="qty-label">${t("qty")}</span>
+          <span class="qty-ctrl">
+            <button type="button" class="qty-btn" data-act="minus">−</button>
+            <span class="qty-num">${qty||1}</span>
+            <button type="button" class="qty-btn" data-act="plus">＋</button>
+          </span>
+        </div>
+      </div>`;
+    const toggle = ()=>{
+      if(merchSel[c.id]) delete merchSel[c.id];
+      else merchSel[c.id] = 1;
+      buildMerch();
+    };
+    el.onclick = toggle;
+    el.onkeydown = e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} };
+    el.querySelectorAll(".qty-btn").forEach(b=>{
+      b.onclick = e=>{
+        e.stopPropagation();
+        let q = (merchSel[c.id] || 1) + (b.dataset.act==="plus" ? 1 : -1);
+        merchSel[c.id] = Math.min(9, Math.max(1, q));
+        buildMerch();
+      };
+    });
+    list.appendChild(el);
+  });
 }
 
 function buildFlowers(){
@@ -786,6 +866,7 @@ function applyLang(){
   buildHome();
   buildCakes();
   buildFlowers();
+  buildMerch();
   buildTimes();
   if(MODE) updateModeTexts();
   updateDateWarn();
@@ -836,10 +917,11 @@ $("#genBtn").onclick = ()=>{
 
   const cake = CAKES.find(c=>c.id===selectedCake);
   const flower = FLOWERS.find(f=>f.id===selectedFlower);
-  if(!cake && !flower){
-    err.textContent = (MODE==="flower") ? t("errNeedFlower") : t("errNeedCake");
+  const merchItems = MERCH_LIST.filter(x=>merchSel[x.id]).map(x=>({item:x, qty:merchSel[x.id]}));
+  if(!cake && !flower && merchItems.length===0){
+    err.textContent = (MODE==="merch") ? t("errNeedMerch") : (MODE==="flower") ? t("errNeedFlower") : t("errNeedCake");
     err.style.display="block";
-    const target = (MODE==="flower") ? "#flowerList" : "#cakeList";
+    const target = (MODE==="merch") ? "#merchList" : (MODE==="flower") ? "#flowerList" : "#cakeList";
     $(target).scrollIntoView({behavior:"smooth",block:"center"}); return; }
 
   let firstBad = null;
@@ -859,7 +941,8 @@ $("#genBtn").onclick = ()=>{
   $("#tCode").textContent = code;
 
   const plate = cake ? $("#plateInput").value.trim() : "";
-  const total = (cake ? cake.price + DELIVERY_FEE : 0) + (flower ? flower.price : 0);
+  const merchTotal = merchItems.reduce((s,m)=> s + m.item.price * m.qty, 0);
+  const total = (cake ? cake.price + DELIVERY_FEE : 0) + (flower ? flower.price : 0) + merchTotal;
 
   let itemsHTML = "";
   if(cake){
@@ -870,6 +953,9 @@ $("#genBtn").onclick = ()=>{
   if(flower){
     itemsHTML += `<div class="t-row"><span class="t-key">💐 ${L(flower.name)} · ${L(flower.badge)}</span><span class="t-val">${yen(flower.price)}</span></div>`;
   }
+  merchItems.forEach(m=>{
+    itemsHTML += `<div class="t-row"><span class="t-key">🛍️ ${L(m.item.name)} × ${m.qty}</span><span class="t-val">${yen(m.item.price * m.qty)}</span></div>`;
+  });
   itemsHTML += `<div class="t-row t-total"><span class="t-key">${t("total")}</span><span class="t-val">${yen(total)}</span></div>`;
   $("#tItems").innerHTML = itemsHTML;
 
@@ -892,6 +978,7 @@ $("#genBtn").onclick = ()=>{
     itemLines.push(`- ${t("delivery")}: ${yen(DELIVERY_FEE)}`);
   }
   if(flower) itemLines.push(`- ${L(flower.name)} (${L(flower.badge)}): ${yen(flower.price)}`);
+  merchItems.forEach(m=> itemLines.push(`- ${L(m.item.name)} × ${m.qty}: ${yen(m.item.price * m.qty)}`));
 
   lastText =
 `【Anno Villas — ${t("tTitle")} ${code}】

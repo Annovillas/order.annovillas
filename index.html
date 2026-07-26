@@ -162,6 +162,10 @@
     font-size:17px;font-weight:700;cursor:pointer;line-height:1;color:var(--ink);
     display:flex;align-items:center;justify-content:center;font-family:var(--font-body)}
   .qty-num{font-family:var(--font-mono);font-size:16px;font-weight:600;min-width:20px;text-align:center}
+  .thumbs{display:flex;gap:6px;padding:8px 10px 0;background:#fff}
+  .thumb{width:44px;height:44px;object-fit:cover;border-radius:8px;border:2px solid var(--line);
+    cursor:pointer;opacity:.75;flex:none}
+  .thumb.on{border-color:var(--yellow);opacity:1}
 
   /* message plate */
   .plate-card{
@@ -692,6 +696,25 @@ const t = k => (I18N[k]||{})[LANG] || "";
 const L = o => o[LANG] || o.en;
 const yen = n => "¥" + n.toLocaleString("ja-JP");
 
+/* 商品相簿：商品若有 photos 陣列則顯示縮圖切換 */
+let photoSel = {};
+function productImgHTML(c){
+  const ph = (c.photos && c.photos.length) ? c.photos : [c.img];
+  const idx = Math.min(photoSel[c.id] || 0, ph.length - 1);
+  let html = `<img src="${ph[idx]}" alt="${L(c.name)}">`;
+  if(ph.length > 1){
+    html += `<div class="thumbs">` + ph.map((p,i)=>
+      `<img src="${p}" class="thumb${i===idx ? " on" : ""}" data-pid="${c.id}" data-idx="${i}" alt="">`
+    ).join("") + `</div>`;
+  }
+  return html;
+}
+function bindThumbs(el, rebuild){
+  el.querySelectorAll(".thumb").forEach(tb=>{
+    tb.onclick = e=>{ e.stopPropagation(); photoSel[tb.dataset.pid] = +tb.dataset.idx; rebuild(); };
+  });
+}
+
 function buildCakes(){
   const list = $("#cakeList");
   list.innerHTML = "";
@@ -702,7 +725,7 @@ function buildCakes(){
     el.setAttribute("tabindex","0");
     el.innerHTML = `
       <span class="cake-badge">${L(c.badge)}</span>
-      <img src="${c.img}" alt="${L(c.name)}">
+      ${productImgHTML(c)}
       <div class="cake-info">
         <div class="cake-name">${L(c.name)}</div>
         <div class="cake-desc">${L(c.desc)}</div>
@@ -715,6 +738,7 @@ function buildCakes(){
     };
     el.onclick = pick;
     el.onkeydown = e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();pick();} };
+    bindThumbs(el, buildCakes);
     list.appendChild(el);
   });
 }
@@ -791,7 +815,7 @@ function buildMerch(){
     el.setAttribute("tabindex","0");
     el.innerHTML = `
       <span class="cake-badge">${L(c.badge)}</span>
-      <img src="${c.img}" alt="${L(c.name)}">
+      ${productImgHTML(c)}
       <div class="cake-info">
         <div class="cake-name">${L(c.name)}</div>
         <div class="cake-desc">${L(c.desc)}</div>
@@ -820,6 +844,7 @@ function buildMerch(){
         buildMerch();
       };
     });
+    bindThumbs(el, buildMerch);
     list.appendChild(el);
   });
 }
@@ -834,7 +859,7 @@ function buildFlowers(){
     el.setAttribute("tabindex","0");
     el.innerHTML = `
       <span class="cake-badge">${L(c.badge)}</span>
-      <img src="${c.img}" alt="${L(c.name)}">
+      ${productImgHTML(c)}
       <div class="cake-info">
         <div class="cake-name">${L(c.name)}</div>
         <div class="cake-desc">${L(c.desc)}</div>
@@ -843,6 +868,7 @@ function buildFlowers(){
     const pick = ()=>{ selectedFlower = (selectedFlower===c.id) ? null : c.id; buildFlowers(); };
     el.onclick = pick;
     el.onkeydown = e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();pick();} };
+    bindThumbs(el, buildFlowers);
     list.appendChild(el);
   });
 }

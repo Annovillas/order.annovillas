@@ -167,7 +167,7 @@ const BREAKFAST = {
   entryImg:"img/breakfast-entry.jpg",
   img:"img/breakfast-1.jpg",
   photos:["img/breakfast-1.jpg","img/breakfast-2.jpg","img/breakfast-3.jpg"],
-  minQty:2, groupOnly:true,
+  groupOnly:true,
   badge:{en:"Group events", zh:"團體活動限定", ja:"団体イベント限定", ko:"단체 행사 전용", fr:"\u00c9v\u00e9nements de groupe", th:"เฉพาะกิจกรรมกลุ่ม"},
   name:{en:"Breakfast Box", zh:"早餐盒", ja:"朝食ボックス", ko:"조식 박스", fr:"Coffret petit-déjeuner", th:"กล่องอาหารเช้า"},
   desc:{en:"Croissants and bread rolls, yoghurt, jam, fresh fruit, sausage, ham, salad and juice in a wooden carry box — to enjoy on your terrace or in your dome with Mt. Fuji in view.",

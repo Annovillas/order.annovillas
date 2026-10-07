@@ -16,7 +16,7 @@ const CAKES = [
     desc:{en:"Fresh cream sponge with whole Japanese strawberries. For 2\u20134.",
           zh:"\u9bae\u5976\u6cb9\u86cb\u7cd5\u9ad4\u914d\u6574\u9846\u65e5\u672c\u8349\u8393\uff0c\u9069\u5408 2\u20134 \u4eba\u3002",
           ja:"\u751f\u30af\u30ea\u30fc\u30e0\u3068\u56fd\u7523\u82fa\u306e\u30c7\u30b3\u30ec\u30fc\u30b7\u30e7\u30f3\u30b1\u30fc\u30ad\u30022\u301c4\u540d\u69d8\u3002"},
-    price:4000
+    price:4400
   },
   {
     id:"straw17",
@@ -26,7 +26,7 @@ const CAKES = [
     desc:{en:"The same classic, sized for a bigger celebration. For 4\u20136.",
           zh:"\u540c\u6a23\u7684\u7d93\u5178\u6ecb\u5473\uff0c\u66f4\u5927\u5c3a\u5bf8\uff0c\u9069\u5408 4\u20136 \u4eba\u3002",
           ja:"\u540c\u3058\u5b9a\u756a\u3092\u5927\u304d\u306a\u30b5\u30a4\u30ba\u3067\u30024\u301c6\u540d\u69d8\u3002"},
-    price:5000
+    price:5500
   },
   {
     id:"choco14",
@@ -36,7 +36,7 @@ const CAKES = [
     desc:{en:"Chocolate cream with crisp chocolate pieces and cocoa. For 2\u20134.",
           zh:"\u5de7\u514b\u529b\u5976\u6cb9\u914d\u8106\u7247\u5de7\u514b\u529b\u8207\u53ef\u53ef\uff0c\u9069\u5408 2\u20134 \u4eba\u3002",
           ja:"\u30d1\u30ea\u30d1\u30ea\u98df\u611f\u306e\u30c1\u30e7\u30b3\u3068\u30b7\u30e7\u30b3\u30e9\u30af\u30ea\u30fc\u30e0\u30022\u301c4\u540d\u69d8\u3002"},
-    price:4000
+    price:4400
   },
   {
     id:"choco17",
@@ -46,10 +46,10 @@ const CAKES = [
     desc:{en:"The rich favourite, sized for a bigger celebration. For 4\u20136.",
           zh:"\u6fc3\u90c1\u4eba\u6c23\u6b3e\uff0c\u66f4\u5927\u5c3a\u5bf8\uff0c\u9069\u5408 4\u20136 \u4eba\u3002",
           ja:"\u4eba\u6c17\u306e\u6fc3\u539a\u30c1\u30e7\u30b3\u3092\u5927\u304d\u306a\u30b5\u30a4\u30ba\u3067\u30024\u301c6\u540d\u69d8\u3002"},
-    price:5000
+    price:5500
   }
 ];
-const DELIVERY_FEE = 2200;   /* chilled delivery to room fridge */
+const DELIVERY_FEE = 2420;   /* tax incl. (was 2,200 excl.) */   /* chilled delivery to room fridge */
 
 /* ★ FLOWERS — edit names and prices here ★ */
 const FLOWERS = [
@@ -61,7 +61,7 @@ const FLOWERS = [
     desc:{en:"Soft pink, lavender and apricot roses in a pastel wrap.",
           zh:"\u7c89\u7d05\u3001\u85b0\u8863\u8349\u7d2b\u8207\u674f\u8272\u73ab\u7470\uff0c\u7c89\u5f69\u5305\u88dd\u3002",
           ja:"\u30d4\u30f3\u30af\u30fb\u30e9\u30d9\u30f3\u30c0\u30fc\u30fb\u30a2\u30d7\u30ea\u30b3\u30c3\u30c8\u306e\u30d0\u30e9\u3092\u30d1\u30b9\u30c6\u30eb\u306b\u3002"},
-    price:13200
+    price:14520
   },
   {
     id:"rose_red",
@@ -71,7 +71,7 @@ const FLOWERS = [
     desc:{en:"A dozen deep red roses \u2014 the timeless romantic gesture.",
           zh:"\u5341\u4e8c\u679d\u6df1\u7d05\u73ab\u7470\uff0c\u6c38\u6046\u7684\u6d6a\u6f2b\u3002",
           ja:"\u6df1\u7d05\u306e\u30d0\u30e912\u672c\u3002\u6642\u3092\u8d85\u3048\u308b\u30ed\u30de\u30f3\u30c6\u30a3\u30c3\u30af\u306a\u8d08\u308a\u7269\u3002"},
-    price:13200
+    price:14520
   }
 ];
 
@@ -103,7 +103,7 @@ const MERCH = [
       ko:"잔 바닥에 후지산이 떠오르는, 빌라와 같은 오리지널 글라스입니다. φ9×9.5cm, 우드 박스 포함.",
       fr:"Le mont Fuji se dessine au fond du verre \u2014 le m\u00eame que dans votre villa. \u03c69 \u00d7 9,5 cm, coffret en bois inclus.",
       th:"ก้นแก้วเป็นรูปภูเขาไฟฟูจิ ใบเดียวกับที่ใช้ในวิลล่า ขนาด 9×9.5 ซม. พร้อมกล่องไม้"},
-    price:7700
+    price:8470
   },
   {
     id:"tissue",
@@ -122,16 +122,70 @@ const MERCH = [
       ko:"빌라에서 사용 중인 티슈 박스입니다. 집에서도 Anno Villas의 분위기를 느껴 보세요.",
       fr:"La bo\u00eete \u00e0 mouchoirs de nos villas \u2014 un souvenir discret \u00e0 ramener chez vous.",
       th:"กล่องทิชชูแบบเดียวกับที่ใช้ในวิลล่า นำความรู้สึกของ Anno Villas กลับบ้าน"},
-    price:7700
+    price:8470
   }
 ];
 
+/* =========================================================
+   ★ DINING & CELEBRATION SERVICES（2026-10 新增）★
+   價格皆為含稅。照片放在 img/ 資料夾。
+========================================================= */
+const BBQ_SET = {
+  id:"wagyu_bbq",
+  entryImg:"img/bbq-rooftop-entry.jpg",
+  img:"img/bbq-set.jpg",
+  photos:["img/bbq-set.jpg","img/bbq-rooftop.jpg","img/bbq-wagyu.jpg"],
+  basePeople:3, basePrice:23100, extraPrice:7700, maxPeople:20, leadDays:5,
+  badge:{en:"Japanese Black Wagyu", zh:"黑毛和牛", ja:"黒毛和牛", ko:"흑모와규", fr:"Wagyu noir japonais", th:"วากิวดำญี่ปุ่น"},
+  name:{en:"Japanese Black Wagyu BBQ Set", zh:"黑毛和牛燒烤套餐", ja:"黒毛和牛 BBQセット", ko:"흑모와규 BBQ 세트", fr:"Formule barbecue wagyu noir japonais", th:"ชุดบาร์บีคิววากิวดำญี่ปุ่น"},
+  desc:{en:"Japanese Black Wagyu with pork, prawns and seasonal vegetables, Yamanashi Rihoku rice and a Fujiyama local craft beer — prepared for a private barbecue beneath Mt. Fuji.",
+    zh:"黑毛和牛搭配豬肉、鮮蝦與當季時蔬，附山梨梨北米白飯與富士山在地精釀啤酒，在富士山下享受專屬的私人燒烤。",
+    ja:"黒毛和牛に豚肉・海老・旬の野菜、山梨県産「梨北米」のごはん、富士山の地ビールを添えて。富士山を望むプライベートBBQのためにご用意いたします。",
+    ko:"흑모와규에 돼지고기, 새우, 제철 채소, 야마나시산 리호쿠 쌀밥과 후지산 지역 수제 맥주를 곁들인, 후지산 아래 프라이빗 바비큐 세트입니다.",
+    fr:"Wagyu noir japonais, porc, crevettes et légumes de saison, riz Rihoku du Yamanashi et bière artisanale locale Fujiyama — pour un barbecue privé au pied du mont Fuji.",
+    th:"วากิวดำญี่ปุ่น พร้อมหมู กุ้ง และผักตามฤดูกาล ข้าวริโฮคุจากยามานาชิ และคราฟต์เบียร์ท้องถิ่นฟูจิยามะ สำหรับบาร์บีคิวส่วนตัวใต้ภูเขาไฟฟูจิ"}
+};
+
+const DECOR = {
+  id:"bday_decor",
+  entryImg:"img/decor-entry.jpg",
+  img:"img/decor-1.jpg",
+  photos:["img/decor-1.jpg","img/decor-2.jpg"],
+  price:7700, directPrice:5500,
+  badge:{en:"Celebration", zh:"慶生", ja:"お祝い", ko:"기념일", fr:"Fête", th:"ฉลอง"},
+  name:{en:"Birthday Decoration", zh:"生日佈置", ja:"バースデーデコレーション", ko:"생일 데코레이션", fr:"Décoration d'anniversaire", th:"การตกแต่งวันเกิด"},
+  desc:{en:"HAPPY BIRTHDAY balloon letters, hearts, stars and balloons — set up in your villa by our team.",
+    zh:"HAPPY BIRTHDAY 字母氣球、愛心、星星與氣球，由我們的團隊為您佈置於別墅內。",
+    ja:"HAPPY BIRTHDAY のバルーンレター、ハートや星、バルーンで、スタッフがお部屋を飾り付けいたします。",
+    ko:"HAPPY BIRTHDAY 글자 풍선, 하트, 별, 풍선으로 저희 팀이 빌라를 꾸며 드립니다.",
+    fr:"Lettres-ballons HAPPY BIRTHDAY, cœurs, étoiles et ballons, installés dans votre villa par notre équipe.",
+    th:"ลูกโป่งตัวอักษร HAPPY BIRTHDAY หัวใจ ดาว และลูกโป่ง ทีมงานของเราจะตกแต่งในวิลล่าให้ท่าน"}
+};
+
+const BREAKFAST = {
+  id:"breakfast_box",
+  entryImg:"img/breakfast-entry.jpg",
+  img:"img/breakfast-1.jpg",
+  photos:["img/breakfast-1.jpg","img/breakfast-2.jpg","img/breakfast-3.jpg"],
+  minQty:2, groupOnly:true,
+  badge:{en:"Group bookings", zh:"團體預約", ja:"団体様向け", ko:"단체 예약", fr:"Groupes", th:"สำหรับกลุ่ม"},
+  name:{en:"Breakfast Box", zh:"早餐盒", ja:"朝食ボックス", ko:"조식 박스", fr:"Coffret petit-déjeuner", th:"กล่องอาหารเช้า"},
+  desc:{en:"Croissants and bread rolls, yoghurt, jam, fresh fruit, sausage, ham, salad and juice in a wooden carry box — to enjoy on your terrace or in your dome with Mt. Fuji in view.",
+    zh:"可頌與餐包、優格、果醬、新鮮水果、香腸、火腿、沙拉與果汁，盛裝於木製提盒，在露台或圓頂帳內伴著富士山景享用。",
+    ja:"クロワッサンやロールパン、ヨーグルト、ジャム、フルーツ、ソーセージ、ハム、サラダ、ジュースを木箱に詰めて。テラスやドームで富士山を眺めながらお召し上がりください。",
+    ko:"크루아상과 롤빵, 요거트, 잼, 신선한 과일, 소시지, 햄, 샐러드, 주스를 나무 상자에 담았습니다. 테라스나 돔에서 후지산을 바라보며 즐겨 보세요.",
+    fr:"Croissants et petits pains, yaourt, confiture, fruits frais, saucisse, jambon, salade et jus, dans un coffret en bois — à savourer sur la terrasse ou sous le dôme, face au mont Fuji.",
+    th:"ครัวซองต์และขนมปัง โยเกิร์ต แยม ผลไม้สด ไส้กรอก แฮม สลัด และน้ำผลไม้ ในกล่องไม้ ทานบนระเบียงหรือในโดมพร้อมวิวภูเขาไฟฟูจิ"}
+};
+const CONTACT = { whatsapp:"819091066569", email:"cs@annovillas.com" };
+
 /* 給後台 / API 使用的全域物件 */
 window.STORE_CATALOG = {
-  version: "2026-07-26",
+  version: "2026-10-07",
   currency: "JPY",
   deliveryFee: DELIVERY_FEE,
   cakes: CAKES,
   flowers: FLOWERS,
-  merch: MERCH
+  merch: MERCH,
+  services: { bbq: BBQ_SET, decor: DECOR, breakfast: BREAKFAST }
 };
